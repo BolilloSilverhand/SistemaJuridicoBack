@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cases', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+        Schema::create('legal_cases', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('case_number')->unique();
             $table->text('parties');
             $table->string('court');
             $table->string('status')->default('Active');
-            $table->foreignUuid('client_id')
+            $table->foreignId('client_id')
                 ->nullable()
                 ->constrained('clients')
                 ->nullOnDelete();
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cases');
+        Schema::dropIfExists('legal_cases');
     }
 };

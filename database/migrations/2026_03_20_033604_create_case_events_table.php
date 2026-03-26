@@ -13,11 +13,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('case_events', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignUuid('case_id')
-                ->constrained('cases')
-                ->cascadeOnDelete();
+            $table->foreignId('legal_case_id')
+                ->constrained('legal_cases')
+                ->restrictOnDelete();
             $table->date('event_date')->default(DB::raw('CURRENT_DATE'));
             $table->string('event_type');
             $table->text('description');

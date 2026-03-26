@@ -2,21 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasMany; 
 
-class Expediente extends Model
+class LegalCase extends Model
 {
-    use HasUuids;
-
-    protected $table = 'cases';
-
-    public $incrementing = false;
-
-    protected $keyType = 'string';
-
     protected $fillable = [
         'user_id',
         'case_number',
@@ -33,7 +24,7 @@ class Expediente extends Model
 
     public function client(): BelongsTo
     {
-        return $this->belongsTo(Cliente::class, 'client_id');
+        return $this->belongsTo(Client::class, 'client_id');
     }
 
     public function user(): BelongsTo
@@ -43,6 +34,6 @@ class Expediente extends Model
 
     public function events(): HasMany
     {
-        return $this->hasMany(Movimiento::class, 'case_id');
+        return $this->hasMany(CaseEvent::class, 'legal_case_id');
     }
 }

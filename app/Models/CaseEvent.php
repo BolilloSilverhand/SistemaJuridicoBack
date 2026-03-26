@@ -2,23 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Movimiento extends Model
+class CaseEvent extends Model
 {
-    use HasUuids;
-
     protected $table = 'case_events';
-
-    public $incrementing = false;
-
-    protected $keyType = 'string';
 
     protected $fillable = [
         'user_id',
-        'case_id',
+        'legal_case_id',
         'event_date',
         'event_type',
         'description',
@@ -32,9 +25,9 @@ class Movimiento extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function case(): BelongsTo
+    public function legalCase(): BelongsTo
     {
-        return $this->belongsTo(Expediente::class, 'case_id');
+        return $this->belongsTo(LegalCase::class, 'legal_case_id');
     }
 
     public function user(): BelongsTo
